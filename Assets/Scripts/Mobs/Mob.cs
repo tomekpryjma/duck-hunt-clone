@@ -26,6 +26,11 @@ public class Mob : MonoBehaviour
 
     private void OnBecameInvisible()
     {
+        if (!isDead)
+        {
+            Progress.AddToStat("misses");
+        }
+
         Destroy(gameObject);
     }
 
@@ -38,10 +43,6 @@ public class Mob : MonoBehaviour
 
         isDead = true;
         speed = 0;
-
-        /*ParticleSystem.VelocityOverLifetimeModule velocity = particleSystem.velocityOverLifetime;
-        velocity.speedModifier = 5;
-        particleSystem.Play();*/
 
         Instantiate(
             feathersEffectPrefab,
