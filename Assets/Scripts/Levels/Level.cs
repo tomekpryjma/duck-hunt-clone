@@ -7,7 +7,7 @@ public abstract class Level
     public string name;
     public List<Dictionary<string, float>> spawners;
     public List<Dictionary<string, float>> specialSpawners;
-    public int spawnAmount;
+    public float specialSpawnAmount;
     public float spawnSpeed;
     public Level next;
 
