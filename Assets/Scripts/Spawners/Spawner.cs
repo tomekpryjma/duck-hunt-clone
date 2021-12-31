@@ -55,4 +55,11 @@ public class Spawner : MonoBehaviour
         int max = (int) transform.position.y + mobPosYChange;
         return Random.Range(min, max);
     }
+
+    public void Setup(float sAmount, float sSpeed, float dir)
+    {
+        spawnAmount = (int) sAmount;
+        spawnSpeed = (int) sSpeed;
+        direction = (Direction) dir;
+    }
 }

@@ -59,4 +59,10 @@ public class SpecialMobSpawns : MonoBehaviour
         );
         mob.GetComponent<SpecialMob>().Spawn();
     }
+
+    public void Setup(List<GameObject> spawners, int sAmount)
+    {
+        specialSpawners = spawners;
+        spawnAmount = sAmount;
+    }
 }
