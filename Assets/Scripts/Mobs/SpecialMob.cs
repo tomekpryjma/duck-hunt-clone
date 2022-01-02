@@ -76,6 +76,11 @@ public class SpecialMob : Mob
 
     private void OnBecameInvisible()
     {
+        if (!isDead)
+        {
+            Progress.AddToStat("misses");
+        }
+
         Destroy(moveToPoint.gameObject);
         Destroy(gameObject);
     }
