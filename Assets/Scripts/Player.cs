@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Texture2D cursorTexture;
     private CursorMode cursorMode;
     private Vector2 hotSpot = new Vector2(15, 15);
-    private bool canShoot = true;
     private Weapon weapon;
     public GameObject weaponPrefab;
+    public static bool canShoot = true;
 
     private const int MOUSE_PRIMARY = 0;
 
