@@ -76,12 +76,58 @@ public class GameController : MonoBehaviour
 
         if (Progress.LevelKills + Progress.LevelMisses == mobsOnThisLevel)
         {
-            roundOverModal.SetActive(true);
+            NextLevel();
         }
     }
 
     public void RegisterAmountOfMobs(int spawnAmount)
     {
         mobsOnThisLevel += spawnAmount;
+    }
+
+    public void NextLevel()
+    {
+        if (currentLevelIndex + 1 > levels.Count - 1)
+        {
+            SceneManager.LoadScene("End");
+            return;
+        }
+        currentLevel = levels[++currentLevelIndex];
+        LevelStart();
+    }
+
+    public void LevelStart()
+    {
+        RemoveCurrentLevelItems();
+        SceneSetup(currentLevel);
+    }
+
+    public static void Pause()
+    {
+        Time.timeScale = 0f;
+        gameIsPaused = true;
+    }
+
+    public static void UnPause()
+    {
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+    }
+
+    public static void NewGame()
+    {
+        Progress.NewGame();
+        SceneManager.LoadScene("Main");
+    }
+
+    public static void Resume()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public static void QuitGame()
+    {
+        Debug.Log("Quitting");
+        Application.Quit();
     }
 }
