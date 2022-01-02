@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -8,30 +9,43 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject spawnerPrefab;
     [SerializeField] private GameObject specialSpawnerPrefab;
     [SerializeField] private GameObject specialSpawnersControllerObject;
+    [SerializeField] private GameObject startCountdownObject;
+    private StartCountdown startCountdown;
     private SpecialMobSpawns specialSpawnersController;
     private int mobsOnThisLevel = 0;
     private int endOfRoundMobThreshold = 5;
     private bool nearEndOfRound = false;
     private List<Level> levels;
+    private List<GameObject> currentSpawners;
+    private List<GameObject> currentSpecialSpawners;
     private Level currentLevel;
     private int currentLevelIndex = 0;
+    private int countdownSeconds = 5;
+    private static bool gameIsPaused;
     public bool NearEndOfRound { get { return nearEndOfRound; } }
+    public static bool GameIsPaused { get { return gameIsPaused; } }
+    public static bool isCountingDown = true;
 
     private void Awake()
     {
-        Progress.Setup();
+        startCountdown = startCountdownObject.GetComponent<StartCountdown>();
+        Progress.Reset();
         levels = new List<Level>();
+        currentSpawners = new List<GameObject>();
+        currentSpecialSpawners = new List<GameObject>();
 
         levels.Add(new LevelOne());
+        levels.Add(new LevelTwo());
 
         specialSpawnersController = specialSpawnersControllerObject.GetComponent<SpecialMobSpawns>();
 
         currentLevel = levels[currentLevelIndex];
-        SceneSetup(currentLevel);
+        StartCoroutine(startCountdown.Countdown(countdownSeconds));
     }
 
     private void SceneSetup(Level level)
     {
+
         // TODO: add level name GameObject into scene
         Debug.Log("Now playing: " + level.name);
 
@@ -47,6 +61,7 @@ public class GameController : MonoBehaviour
 
             Spawner spawnerScript = spawner.GetComponent<Spawner>();
             spawnerScript.Setup(s["spawnAmount"], s["spawnSpeed"], s["direction"]);
+            currentSpawners.Add(spawner);
         }
 
         foreach (Dictionary<string, float> s in level.specialSpawners)
@@ -57,6 +72,7 @@ public class GameController : MonoBehaviour
                 Quaternion.identity
             );
             specialSpawners.Add(spawner);
+            currentSpecialSpawners.Add(spawner);
         }
 
         specialSpawnersController.Setup(specialSpawners, (int) level.specialSpawnAmount);
