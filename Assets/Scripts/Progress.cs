@@ -34,4 +34,12 @@ public static class Progress
         levelStats.Add("shots", 0f);
         levelStats.Add("misses", 0f);
     }
+
+    public static void NewGame()
+    {
+        PlayerPrefs.SetInt("currentLevel", 0);
+        PlayerPrefs.SetFloat("kills", 0);
+        PlayerPrefs.SetFloat("shots", 0);
+        PlayerPrefs.SetFloat("misses", 0);
+    }
 }
