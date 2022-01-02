@@ -9,13 +9,14 @@ public class Player : MonoBehaviour
     private Vector2 hotSpot = new Vector2(15, 15);
     private Weapon weapon;
     public GameObject weaponPrefab;
-    public static bool canShoot = true;
+    public static bool canShoot;
 
     private const int MOUSE_PRIMARY = 0;
 
     // Start is called before the first frame update
     private void Start()
     {
+        canShoot = true;
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         GameObject weap = Instantiate(weaponPrefab, new Vector3(0, -3.8f, 0), Quaternion.identity);
         weapon = weap.GetComponent<Weapon>();
