@@ -5,10 +5,9 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] protected GameObject reloadEffectPrefab;
-    [SerializeField] private Sprite reloadSprite;
+    private AudioSource audioSource;
     private ParticleSystem particles;
     private Animator animator;
-    private Vector3 originalPosition;
     private string animationFireName;
     private string animationIdleName;
     private float rotationOffset = 90;
@@ -16,8 +15,6 @@ public class Weapon : MonoBehaviour
     private float rotationClamp = 15;
     private bool isShooting;
     private float reloadSpeed = 0.8f;
-    private float reloadYChange = 5;
-    private float lerpSpeed = 5;
     public string label = "Weapon";
 
     private void Start()
@@ -25,11 +22,11 @@ public class Weapon : MonoBehaviour
         animationFireName = label + "_Fire";
         animationIdleName = label + "_Idle";
         animator = GetComponent<Animator>();
-        originalPosition = transform.position;
+        audioSource = GetComponent<AudioSource>();
 
         GameObject prefab = Instantiate(
             reloadEffectPrefab,
-            new Vector3(transform.position.x, -4.99f, 0f),
+            new Vector3(transform.position.x, -4.99f, -10f),
             Quaternion.identity
         );
         particles = prefab.GetComponent<ParticleSystem>();
@@ -43,27 +40,19 @@ public class Weapon : MonoBehaviour
             {
                 StartCoroutine("Reload");
             }
-            
+
             animator.Play(animationIdleName);
         }
     }
     private IEnumerator Reload()
     {
-        transform.position = Vector3.Lerp(
-            transform.position,
-            new Vector3(originalPosition.x, originalPosition.y - reloadYChange, 0),
-            lerpSpeed * Time.deltaTime
-        );
-
         yield return new WaitForSeconds(reloadSpeed);
 
         if (!particles.isPlaying)
         {
             particles.Play();
         }
-        
 
-        transform.position = Vector3.Lerp(transform.position, originalPosition, (lerpSpeed + 2) * Time.deltaTime);
         isShooting = false;
     }
 
@@ -85,6 +74,7 @@ public class Weapon : MonoBehaviour
     public void Shoot()
     {
         isShooting = true;
+        audioSource.Play();
         animator.Play(animationFireName);
     }
 
