@@ -36,6 +36,11 @@ public class Mob : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (!Player.canShoot)
+        {
+            return;
+        }
+
         if (isDead)
         {
             return;
