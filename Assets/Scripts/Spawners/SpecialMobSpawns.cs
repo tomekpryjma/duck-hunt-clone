@@ -30,6 +30,11 @@ public class SpecialMobSpawns : MonoBehaviour
 
     private void MaybeSpawnSomething()
     {
+        if (specialSpawners.Count == 0)
+        {
+            return;
+        }
+
         if (spawnCount == spawnAmount)
         {
             return;
