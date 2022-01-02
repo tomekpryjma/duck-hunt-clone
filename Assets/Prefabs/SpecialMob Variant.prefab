@@ -44,6 +44,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feathersEffectPrefab: {fileID: 405635403300579685, guid: 2239a855f0d01944e89d86ab6467a25b, type: 3}
   maxSpeed: 5
+  spritePool:
+  - {fileID: -8688934529368839088, guid: 2f6c1eb885d1af147bfbccbc464aaeea, type: 3}
   health: 5
   flyAroundTime: 5
 --- !u!1001 &6545152496238447525
