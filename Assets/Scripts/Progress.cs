@@ -17,9 +17,9 @@ public static class Progress
         PlayerPrefs.SetFloat(statName, currentOverall + value);
     }
 
-    public static void SaveLevel(string sceneName)
+    public static void SaveLevel(int currentLevelIndex)
     {
-        PlayerPrefs.SetString("currentLevel", sceneName);
+        PlayerPrefs.SetInt("currentLevel", currentLevelIndex);
     }
 
     public static float GetOverallStat(string statName)
@@ -27,7 +27,7 @@ public static class Progress
         return PlayerPrefs.GetFloat(statName, 0);
     }
 
-    public static void Setup()
+    public static void Reset()
     {
         levelStats = new Dictionary<string, float>();
         levelStats.Add("kills", 0f);
