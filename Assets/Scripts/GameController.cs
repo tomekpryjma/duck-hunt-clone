@@ -62,6 +62,26 @@ public class GameController : MonoBehaviour
         specialSpawnersController.Setup(specialSpawners, (int) level.specialSpawnAmount);
     }
 
+    private void RemoveCurrentLevelItems()
+    {
+        Debug.Log("Removing previous");
+        if (currentSpawners.Count != 0)
+        {
+            foreach (GameObject spawner in currentSpawners)
+            {
+                Destroy(spawner);
+            }
+        }
+        
+        if (currentSpecialSpawners.Count != 0)
+        {
+            foreach (GameObject spawner in currentSpecialSpawners)
+            {
+                Destroy(spawner);
+            }
+        }
+    }
+
     private void Start()
     {
         roundOverModal.SetActive(false);
