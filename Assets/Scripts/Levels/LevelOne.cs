@@ -14,24 +14,4 @@ public class LevelOne : Level
 
         specialSpawners.Add(SpecialSpawner(-5, -2, 2));
     }
-
-    protected override Dictionary<string, float> Spawner(float x, float y, float direction, float spawnAmount, float spawnSpeed)
-    {
-        Dictionary<string, float> dict = new Dictionary<string, float>();
-        dict.Add("x", x);
-        dict.Add("y", y);
-        dict.Add("direction", direction);
-        dict.Add("spawnAmount", spawnAmount);
-        dict.Add("spawnSpeed", spawnSpeed);
-        return dict;
-    }
-
-    protected override Dictionary<string, float> SpecialSpawner(float x, float y, float spawnAmount)
-    {
-        Dictionary<string, float> dict = new Dictionary<string, float>();
-        dict.Add("x", x);
-        dict.Add("y", y);
-        dict.Add("spawnAmount", spawnAmount);
-        return dict;
-    }
 }
