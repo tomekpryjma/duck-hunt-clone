@@ -18,7 +18,6 @@ public class SpecialMobSpawns : MonoBehaviour
     void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        gameController.RegisterAmountOfMobs(spawnAmount);
         InvokeRepeating("MaybeSpawnSomething", 0, 5);
     }
 
@@ -42,7 +41,7 @@ public class SpecialMobSpawns : MonoBehaviour
 
         int chance = Random.Range(0, chanceToSpawn);
         
-        if (gameController.NearEndOfRound)
+        if (GameController.nearEndOfRound)
         {
             chanceToSpawn = MAX_SPAWN_CHANCE;
         }
@@ -67,7 +66,9 @@ public class SpecialMobSpawns : MonoBehaviour
 
     public void Setup(List<GameObject> spawners, int sAmount)
     {
+        spawnCount = 0;
         specialSpawners = spawners;
         spawnAmount = sAmount;
+        gameController.RegisterAmountOfMobs(sAmount);
     }
 }
