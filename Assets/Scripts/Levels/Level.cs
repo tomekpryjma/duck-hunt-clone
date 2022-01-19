@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Level
 {
-    public string name;
     public List<Dictionary<string, float>> spawners;
     public List<Dictionary<string, float>> specialSpawners;
     public float specialSpawnAmount;
     public float spawnSpeed;
     public Level next;
+    public int endOfRoundMobThreshold;
 
     protected virtual Dictionary<string, float> Spawner(float x, float y, float direction, float spawnAmount, float spawnSpeed)
     {
