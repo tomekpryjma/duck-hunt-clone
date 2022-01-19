@@ -25,8 +25,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        weapon.Rotate(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (Input.GetMouseButtonDown(MOUSE_PRIMARY) && canShoot)
+        if (Input.GetMouseButtonDown(MOUSE_PRIMARY) && canShoot && !GameController.isCountingDown)
         {
             Shoot();
         }
