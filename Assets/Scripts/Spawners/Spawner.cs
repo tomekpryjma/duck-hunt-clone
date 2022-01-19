@@ -10,18 +10,40 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Direction direction = Direction.LEFT;
     [SerializeField] private int spawnAmount = 5;
     [SerializeField] private float spawnSpeed = 1f;
+    [SerializeField] private bool isDemo;
     private GameController gameController;
-    private int mobPosYChange = 2;
+    private float mobPosYChange = 1.5f;
 
     private void Start()
     {
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        gameController.RegisterAmountOfMobs(spawnAmount);
+        if (!isDemo)
+        {
+            gameController = GameObject.Find("GameController").GetComponent<GameController>();
+            gameController.RegisterAmountOfMobs(spawnAmount);
+        }
         StartCoroutine(Spawning());
+    }
+
+    private void Update()
+    {
+        if (GameController.nearEndOfRound)
+        {
+            spawnSpeed = 0.23f;
+        }
     }
 
     private IEnumerator Spawning()
     {
+        if (isDemo)
+        {
+            spawnSpeed = 2;
+            while (true)
+            {
+                SpawnMob();
+                yield return new WaitForSeconds(spawnSpeed);
+            }
+        }
+
         for (int i = 0; i < spawnAmount; i++)
         {
             SpawnMob();
@@ -51,8 +73,8 @@ public class Spawner : MonoBehaviour
 
     private float DetermineMobYPos()
     {
-        int min = (int) transform.position.y - mobPosYChange;
-        int max = (int) transform.position.y + mobPosYChange;
+        float min = transform.position.y - mobPosYChange;
+        float max = transform.position.y + mobPosYChange;
         return Random.Range(min, max);
     }
 
