@@ -11,14 +11,19 @@ public class SpecialMob : Mob
 
     private void Awake()
     {
+        score = 50;
+        animator = GetComponent<Animator>();
         minSpeed = 5;
     }
 
     private void Start()
     {
+        isSpecial = true;
         rb2d = GetComponent<Rigidbody2D>();
         moveToPoint = transform.GetChild(0);
         moveToPoint.parent = null;
+        animator.speed = speed;
+        PlayRandomAnimation();
 
         screenBounds = Camera.main.ScreenToWorldPoint(
             new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z)
