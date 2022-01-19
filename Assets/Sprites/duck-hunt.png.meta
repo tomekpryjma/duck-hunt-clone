@@ -4,40 +4,40 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 5473524309316203815
-    second: duck1_open
+    second: duck-hunt_0
   - first:
       213: -5923762462038128445
-    second: duck1_closed
+    second: duck-hunt_1
   - first:
       213: -15730253083927546
-    second: duck2_open
+    second: duck-hunt_2
   - first:
       213: 2177008362011022296
-    second: duck2_closed
+    second: duck-hunt_3
   - first:
       213: 4011302405485223335
-    second: duck3_open
+    second: duck-hunt_4
   - first:
       213: -4996990634061447327
-    second: duck3_closed
+    second: duck-hunt_5
   - first:
       213: -5640281230872795255
-    second: special_duck_open
+    second: duck-hunt_6
   - first:
       213: -8688934529368839088
-    second: special_duck_closed
+    second: duck-hunt_7
   - first:
       213: -4775907010678027309
-    second: shotgun
+    second: duck-hunt_8
   - first:
       213: 7343138764125980998
-    second: shotgun_fire_1
+    second: duck-hunt_9
   - first:
       213: 8402641789595608930
-    second: shotgun_fire_2
+    second: duck-hunt_10
   - first:
       213: -7474494163197347267
-    second: shell
+    second: duck-hunt_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -82,7 +82,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -127,7 +127,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: duck1_open
+      name: duck-hunt_0
       rect:
         serializedVersion: 2
         x: 0
@@ -148,15 +148,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: duck1_closed
+      name: duck-hunt_1
       rect:
         serializedVersion: 2
         x: 18
         y: 131
         width: 16
         height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -169,7 +169,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: duck2_open
+      name: duck-hunt_2
       rect:
         serializedVersion: 2
         x: 0
@@ -190,15 +190,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: duck2_closed
+      name: duck-hunt_3
       rect:
         serializedVersion: 2
         x: 18
         y: 117
         width: 16
         height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -211,7 +211,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: duck3_open
+      name: duck-hunt_4
       rect:
         serializedVersion: 2
         x: 0
@@ -232,15 +232,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: duck3_closed
+      name: duck-hunt_5
       rect:
         serializedVersion: 2
         x: 18
         y: 103
         width: 16
         height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -253,7 +253,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_duck_open
+      name: duck-hunt_6
       rect:
         serializedVersion: 2
         x: 0
@@ -274,15 +274,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_duck_closed
+      name: duck-hunt_7
       rect:
         serializedVersion: 2
         x: 18
         y: 89
         width: 16
         height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -295,7 +295,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shotgun
+      name: duck-hunt_8
       rect:
         serializedVersion: 2
         x: 0
@@ -316,7 +316,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shotgun_fire_1
+      name: duck-hunt_9
       rect:
         serializedVersion: 2
         x: 21
@@ -337,7 +337,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shotgun_fire_2
+      name: duck-hunt_10
       rect:
         serializedVersion: 2
         x: 44
@@ -358,7 +358,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shell
+      name: duck-hunt_11
       rect:
         serializedVersion: 2
         x: 0
