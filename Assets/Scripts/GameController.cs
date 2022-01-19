@@ -5,26 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject roundOverModal;
     [SerializeField] private GameObject spawnerPrefab;
     [SerializeField] private GameObject specialSpawnerPrefab;
     [SerializeField] private GameObject specialSpawnersControllerObject;
     [SerializeField] private GameObject startCountdownObject;
+    [SerializeField] private GameObject curtain;
     private StartCountdown startCountdown;
     private SpecialMobSpawns specialSpawnersController;
-    private int mobsOnThisLevel = 0;
-    private int endOfRoundMobThreshold = 5;
-    private bool nearEndOfRound = false;
     private List<Level> levels;
     private List<GameObject> currentSpawners;
     private List<GameObject> currentSpecialSpawners;
     private Level currentLevel;
+    private int mobsOnThisLevel = 0;
+    private int endOfRoundMobThreshold;
     private int currentLevelIndex = 0;
-    private int countdownSeconds = 5;
-    private static bool gameIsPaused;
-    public bool NearEndOfRound { get { return nearEndOfRound; } }
-    public static bool GameIsPaused { get { return gameIsPaused; } }
+    private int countdownSeconds = 3;
+    private float countdownDelay = 1;
+    public static bool nearEndOfRound = false;
     public static bool isCountingDown = true;
+    public static bool isPlaying;
 
     private void Awake()
     {
@@ -36,19 +35,20 @@ public class GameController : MonoBehaviour
 
         levels.Add(new LevelOne());
         levels.Add(new LevelTwo());
+        levels.Add(new LevelThree());
+        levels.Add(new LevelFour());
 
         specialSpawnersController = specialSpawnersControllerObject.GetComponent<SpecialMobSpawns>();
 
         currentLevel = levels[currentLevelIndex];
-        StartCoroutine(startCountdown.Countdown(countdownSeconds));
+        StartCoroutine(curtain.GetComponent<Curtain>().FlushIn(null));
+        StartCoroutine(startCountdown.Countdown(countdownSeconds, countdownDelay));
     }
 
     private void SceneSetup(Level level)
     {
-
-        // TODO: add level name GameObject into scene
-        Debug.Log("Now playing: " + level.name);
-
+        Debug.Log(currentLevelIndex);
+        nearEndOfRound = false;
         List<GameObject> specialSpawners = new List<GameObject>();
 
         foreach (Dictionary<string, float> s in level.spawners)
@@ -76,11 +76,11 @@ public class GameController : MonoBehaviour
         }
 
         specialSpawnersController.Setup(specialSpawners, (int) level.specialSpawnAmount);
+        endOfRoundMobThreshold = level.endOfRoundMobThreshold;
     }
 
     private void RemoveCurrentLevelItems()
     {
-        Debug.Log("Removing previous");
         if (currentSpawners.Count != 0)
         {
             foreach (GameObject spawner in currentSpawners)
@@ -96,24 +96,43 @@ public class GameController : MonoBehaviour
                 Destroy(spawner);
             }
         }
+        currentSpawners.Clear();
+        currentSpecialSpawners.Clear();
     }
 
     private void Start()
     {
-        roundOverModal.SetActive(false);
+        isPlaying = true;
     }
 
     private void Update()
     {
-        if (Progress.LevelKills == endOfRoundMobThreshold)
+        /**
+         * TODO: Change this to something like (TotalSpawnsInLevel - AlreadySpawnedInLevel == endOfRoundMobThreshold)
+         * Possibly use mobsOnThisLevel - but this is actually wrongly named as "ThisLevel"
+         * refers to the entire playthrough, so should ideally be renamed to mobsInTotal.
+         */
+        if (mobsOnThisLevel != 0 && mobsOnThisLevel - Progress.LevelKills == endOfRoundMobThreshold)
         {
             nearEndOfRound = true;
         }
 
-        if (Progress.LevelKills + Progress.LevelMisses == mobsOnThisLevel)
+        if (mobsOnThisLevel != 0 && Progress.LevelKills + Progress.LevelMisses == mobsOnThisLevel)
         {
             NextLevel();
         }
+    }
+
+    private void GoToEnd()
+    {
+        float delay = 2;
+        isPlaying = false;
+        StartCoroutine(curtain.GetComponent<Curtain>().FlushOut(ChangeToEndScreen, delay));
+    }
+
+    private static void ChangeToEndScreen()
+    {
+        SceneManager.LoadScene("End");
     }
 
     public void RegisterAmountOfMobs(int spawnAmount)
@@ -125,7 +144,7 @@ public class GameController : MonoBehaviour
     {
         if (currentLevelIndex + 1 > levels.Count - 1)
         {
-            SceneManager.LoadScene("End");
+            GoToEnd();
             return;
         }
         currentLevel = levels[++currentLevelIndex];
@@ -136,18 +155,6 @@ public class GameController : MonoBehaviour
     {
         RemoveCurrentLevelItems();
         SceneSetup(currentLevel);
-    }
-
-    public static void Pause()
-    {
-        Time.timeScale = 0f;
-        gameIsPaused = true;
-    }
-
-    public static void UnPause()
-    {
-        Time.timeScale = 1f;
-        gameIsPaused = false;
     }
 
     public static void NewGame()
