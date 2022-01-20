@@ -9,9 +9,15 @@ public static class Progress
     public static string CurrentLevel { get { return currentLevel; } }
     public static float LevelKills { get { return levelStats["kills"]; } }
     public static float LevelMisses { get { return levelStats["misses"]; } }
+    public static float TotalScore { get { return levelStats["total_score"]; } }
 
     public static void AddToStat(string statName, float value = 1f)
     {
+        if (! GameController.isPlaying)
+        {
+            return;
+        }
+
         float currentOverall = GetOverallStat(statName);
         levelStats[statName] += value;
         PlayerPrefs.SetFloat(statName, currentOverall + value);
@@ -33,6 +39,7 @@ public static class Progress
         levelStats.Add("kills", 0f);
         levelStats.Add("shots", 0f);
         levelStats.Add("misses", 0f);
+        levelStats.Add("total_score", 0f);
     }
 
     public static void NewGame()
@@ -41,5 +48,6 @@ public static class Progress
         PlayerPrefs.SetFloat("kills", 0);
         PlayerPrefs.SetFloat("shots", 0);
         PlayerPrefs.SetFloat("misses", 0);
+        PlayerPrefs.SetFloat("total_score", 0);
     }
 }
