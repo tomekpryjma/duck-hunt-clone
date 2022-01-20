@@ -43,9 +43,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feathersEffectPrefab: {fileID: 405635403300579685, guid: 2239a855f0d01944e89d86ab6467a25b, type: 3}
+  scorePopupPrefab: {fileID: 9126072408788072004, guid: 11f55ccd811510642ae1ffd5d8880a9c, type: 3}
   maxSpeed: 5
-  spritePool:
-  - {fileID: -8688934529368839088, guid: 2f6c1eb885d1af147bfbccbc464aaeea, type: 3}
+  animationPool:
+  - Duck_Special_Fly
+  eggPrefab: {fileID: 1554481937795823136, guid: 7af70ccf04d696548883118c613f3b93, type: 3}
   health: 5
   flyAroundTime: 5
 --- !u!1001 &6545152496238447525
@@ -101,11 +103,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7084334591422311710, guid: c5a3cf982cc632f4181ad9c78d83eea1, type: 3}
       propertyPath: m_Color.b
-      value: 0.7468281
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7084334591422311710, guid: c5a3cf982cc632f4181ad9c78d83eea1, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7084334591422311710, guid: c5a3cf982cc632f4181ad9c78d83eea1, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7084334591422311711, guid: c5a3cf982cc632f4181ad9c78d83eea1, type: 3}
       propertyPath: m_Name
