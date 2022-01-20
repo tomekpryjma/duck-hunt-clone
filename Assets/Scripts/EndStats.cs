@@ -8,31 +8,44 @@ public class EndStats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI killsText;
     [SerializeField] private TextMeshProUGUI shotsText;
     [SerializeField] private TextMeshProUGUI missesText;
+    [SerializeField] private TextMeshProUGUI totalScoreText;
+    [SerializeField] private GameObject curtain;
+    private Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
+    private float wait = 1;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        StartCoroutine(PopulateStats());
+        coroutineQueue.Enqueue(StatDisplayLoop("kills", killsText));
+        coroutineQueue.Enqueue(StatDisplayLoop("shots", shotsText));
+        coroutineQueue.Enqueue(StatDisplayLoop("misses", missesText));
+        coroutineQueue.Enqueue(StatDisplayLoop("total_score", totalScoreText));
     }
 
-    private IEnumerator PopulateStats()
+    // Start is called before the first frame update
+    private IEnumerator Start()
     {
-        for (int i = 1; i <= (int)Progress.GetOverallStat("kills"); i++)
-        {
-            killsText.text = i.ToString();
-            yield return new WaitForSeconds(0.005f);
-        }
+        StartCoroutine(curtain.GetComponent<Curtain>().FlushIn(null));
 
-        for (int i = 1; i <= (int)Progress.GetOverallStat("shots"); i++)
-        {
-            shotsText.text = i.ToString();
-            yield return new WaitForSeconds(0.005f);
-        }
+        yield return new WaitForSeconds(wait);
 
-        for (int i = 1; i <= (int)Progress.GetOverallStat("misses"); i++)
+        while (true)
         {
-            missesText.text = i.ToString();
-            yield return new WaitForSeconds(0.005f);
+            while (coroutineQueue.Count > 0)
+            {
+                yield return StartCoroutine(coroutineQueue.Dequeue());
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator StatDisplayLoop(string statName, TextMeshProUGUI text)
+    {
+        float statValue = Progress.GetOverallStat(statName);
+
+        for (int i = 1; i <= (int)statValue; i++)
+        {
+            text.text = i.ToString();
+            yield return new WaitForSeconds(wait / statValue);
         }
     }
 }
