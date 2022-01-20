@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class EndButtonsController : MonoBehaviour
 {
+    [SerializeField] private GameObject curtain;
+
     public void QuitGame()
     {
         GameController.QuitGame();
     }
     public void NewGame()
     {
-        GameController.NewGame();
+        StartCoroutine(curtain.GetComponent<Curtain>().FlushOut(GameController.NewGame, 0));
     }
 }
